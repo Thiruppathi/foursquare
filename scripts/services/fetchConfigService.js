@@ -6,7 +6,7 @@ var fetchConfigService =  (function($) {
 
 	return {
 		get: function() {
-			return $.ajax({ url: "/static/config.json" });
+			return $.ajax({ url: "static/config.json" });
 		}
 	};
 }($));
