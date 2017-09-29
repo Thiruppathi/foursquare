@@ -1,3 +1,9 @@
+/** 
+ * 
+ * @param {*} appConfig Config object for the class and its functions.
+ * @param {*} $ Jquery object.
+ * @param {*} selectors Object containing selectors for DOM manipulation.
+ */
 function FoursquareApp(appConfig, $, selectors) {
 	this.registerationSuccess = function(token) {
 		appConfig.urlParams.oauth_token = token;
@@ -37,7 +43,13 @@ function FoursquareApp(appConfig, $, selectors) {
 			}
 		});
 	}
-	
+
+	/**
+	 * Prepares the html for the table row containing the
+	 * details of the venue.
+	 * 
+	 * @param {Object} data Object containig the details of the venue fetched.
+	 */
 	function appendTableRow(data) {
 		var html = "<tr> <th>" + data.id + "</th>";
 		if (data.url) {
@@ -74,6 +86,11 @@ function FoursquareApp(appConfig, $, selectors) {
 		}
 	}
 
+	/**
+	 * Prepare the table of results from the response.
+	 * 
+	 * @param {Object} response API response object. 
+	 */
 	function handleResponseAndPrepareUI(response) {
 		var groups = response.groups;
 		$(selectors.resultsTableBody).empty();
