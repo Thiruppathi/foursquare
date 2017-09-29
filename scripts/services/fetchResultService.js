@@ -22,4 +22,4 @@ var fetchResultService =  (function($) {
 			});
 		}
 	};
-})($);
+}($));
