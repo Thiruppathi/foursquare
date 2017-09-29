@@ -5,10 +5,6 @@ function FoursquareApp(appConfig, $, selectors) {
 		configureApp();
 	};
 
-	this.prepareRegisterationLink = function() {
-		$(selectors.registerLink).attr("href", appConfig.registerUrl + "&client_id=" + appConfig.clientId + "&redirect_uri=" + window.location.href);
-	};
-	
 	function getUserLocation() {
 		if ("geolocation" in navigator) {
 			/* geolocation is available */
@@ -120,8 +116,6 @@ function FoursquareApp(appConfig, $, selectors) {
 	function configureApp() {
 		configureProgressBar();
 		configureSlider();
-		$(selectors.videoBackground).hide();
-		$(selectors.registerContainer).hide();
 		$(selectors.formContainer).show();
 		$(selectors.btnExploreVenues).click(fetchVenues);
 		$(selectors.openNowOpt).change(function() {

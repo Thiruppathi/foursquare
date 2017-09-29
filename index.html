@@ -8,47 +8,12 @@
 		<script src="scripts/app.js" type="text/javascript"></script>
 		<script src="scripts/index.js" type="text/javascript"></script>
 		<script src="scripts/services/fetchResultService.js" type="text/javascript"></script>
+		<script src="scripts/services/fetchConfigService.js" type="text/javascript"></script>
 		<link href="styles/bootstrap.min.css" rel="stylesheet"></link>
 		<link href="styles/jquery-ui.min.css" rel="stylesheet"></link>
-		<style type="text/css">
-			/* The only rule that matters */
-			#video-background {
-				/*  making the video fullscreen  */
-				position: fixed;
-				right: 0; 
-				bottom: 0;
-				min-width: 100%; 
-				min-height: 100%;
-				width: auto; 
-				height: auto;
-				z-index: -100;
-			}
-			#registerContainer {
-				opacity: 0.85;
-			}
-			button {
-				cursor: pointer;
-			}
-		</style>
 	</head>
 	<body>
 		<div class="fixed-top" style="display: none;" id="progressBar"></div>
-		<div id="registerContainer" class="container col-sm-8 mt-5">
-			<div class="jumbotron bg-warning">
-				<h1 class="display-4">Explore venues with Foursquare</h1>
-				<p class="lead">Welcome!</p>
-				<hr class="my-2">
-				<p>
-					Click the link below to allow this app to use your data from Foursquare. It's also important
-					you allow your browser to use your location to get better results.
-				</p>
-				<p class="lead">
-					<a id="registerLink" class="btn btn-success">
-						Register
-					</a>
-				</p>
-			</div>
-		</div>
 		<div id="formContainer" style="display: none;" class="card">
 			<div class="card-header text-light bg-dark">
 				Configuration
@@ -114,8 +79,5 @@
 				</table>
 			</div>
 		</div>
-		<video autoplay loop id="video-background" muted plays-inline>
-			<source src="static/food.mp4" type="video/mp4">
-		</video>
 	</body>
 </html>
