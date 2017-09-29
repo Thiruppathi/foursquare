@@ -72,10 +72,12 @@ function FoursquareApp(appConfig, $, selectors) {
 		return location.address;
 	}
 
-	function appendEmptyRowMessage() {
-		var html = "<tr class='alert-dark text-center'> <td colspan='4'> No results found </td> </tr>";
+	function appendEmptyRowMessage(error) {
+		if (error) {
+			return "<tr class='alert-danger text-center'> <td colspan='4'>" +  error + "</td> </tr>";
+		}
 
-		return html;
+		return "<tr class='alert-warning text-center'> <td colspan='4'> No results found </td> </tr>";
 	}
 
 	function getResultText(totalNo) {
@@ -91,9 +93,8 @@ function FoursquareApp(appConfig, $, selectors) {
 	 * 
 	 * @param {Object} response API response object. 
 	 */
-	function handleResponseAndPrepareUI(response) {
+	function handleSuccessfulResponseAndPrepareUI(response) {
 		var groups = response.groups;
-		$(selectors.resultsTableBody).empty();
 		if (response.totalResults === 0) {
 			$(selectors.resultsTableBody).append(appendEmptyRowMessage());
 		} else {
@@ -118,15 +119,18 @@ function FoursquareApp(appConfig, $, selectors) {
 				}
 			});
 		}
-		$(selectors.resultsContainer).show();
 	}
 
 	function fetchVenues() {
-		fetchResultService.get(appConfig.urlParams, function() {
-			$(selectors.progressBar).show();
-		}, function(response) {
+		$(selectors.progressBar).show();
+		$(selectors.resultsTableBody).empty();
+		fetchResultService.get(appConfig.urlParams).done(function(data) {
+			handleSuccessfulResponseAndPrepareUI(data.response);
+		}).fail(function(jqXhr, textStatus, errorThrown) {
+			$(selectors.resultsTableBody).append(appendEmptyRowMessage(errorThrown));
+		}).always(function (data) {
 			$(selectors.progressBar).hide();
-			handleResponseAndPrepareUI(response);
+			$(selectors.resultsContainer).show();
 		});
 	}
 

@@ -17,12 +17,10 @@ var fetchResultService =  (function($) {
 	}
 
 	return {
-		get: function(params, preRequestFn, postRequestFn) {
-			preRequestFn();
-			$.ajax({
+		get: function(params) {
+			
+			return $.ajax({
 				url: apiUrl + prepareApiUrlPath(params)
-			}).done(function(data) {
-				postRequestFn(data.response);
 			});
 		}
 	};
