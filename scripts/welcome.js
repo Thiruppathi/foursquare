@@ -4,7 +4,7 @@ $(document).ready(function() {
 		// remove the current name of the page.
 		path.pop();
 		if (path.length > 0) {
-			path = path.join("/");
+			path = "/" + path.join("/");
 		}
 
 		return appConfig.registerUrl + "&client_id=" + appConfig.clientId + "&redirect_uri=" + window.location.origin + path + appConfig.redirectUrlPath;
