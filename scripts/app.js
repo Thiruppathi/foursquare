@@ -50,10 +50,18 @@ function FoursquareApp(appConfig, $, selectors) {
 			html += "<td>" + data.name + "</td>";
 		}
 		html += "<td>" + data.rating + "</td>";
-		html += "<td>" + data.address + "</td>";
+		html += "<td>" + prepareAddressForGoogleMaps(data.location) + "</td>";
 		html += "</tr>";
 
 		return html;
+	}
+
+	function prepareAddressForGoogleMaps(location) {
+		if (location.lat && location.lng) {
+			return "<a target='_blank' href='https://google.com/maps/?q=" + location.lat + "," + location.lng + "'>" + location.address + "</a>";
+		}
+
+		return location.address;
 	}
 
 	function appendEmptyRowMessage() {
@@ -82,15 +90,13 @@ function FoursquareApp(appConfig, $, selectors) {
 			count = 1;
 			rec_places.forEach(function(place) {
 				try {
-					var venue = place.venue,
-						address = (venue.location.formattedAddress) ?
-						venue.location.formattedAddress.join(" ") : venue.location.address;
+					var venue = place.venue;
 					$(selectors.resultsTableBody).append(
 						appendTableRow({
 							id: count++,
 							name: venue.name,
 							rating: venue.rating,
-							address: address,
+							location: venue.location,
 							url: venue.url
 						})
 					);
