@@ -3,7 +3,8 @@ var appConfig = {
 		radius: 250,
 		openNow: 1,
 		sortByDistance: 0,
-		limit: 50
+		limit: 50,
+		saved: 0
 	},
 	clientId: "3W5ZMN5ESVIW1CNCDIUQM0V21DUAROGR4JSKVTEVY3QFGHE2",
 	registerUrl: "https://foursquare.com/oauth2/authenticate?response_type=token",
@@ -34,6 +35,7 @@ var appConfig = {
 	openNowOpt: "#openNowOpt",
 	distanceOpt: "#distanceOpt",
 	sectionOpt: "#sectionOpt",
+	savedOpt: "#savedOpt",
 	limitResultsOpt: "#limitResultsOpt",
 	resultsCardHeader: "#resultsCardHeader",
 	btnNextResults: "#btnNextResults"

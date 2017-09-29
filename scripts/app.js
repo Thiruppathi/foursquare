@@ -131,10 +131,13 @@ function FoursquareApp(appConfig, $, selectors) {
 		$(selectors.formContainer).show();
 		$([selectors.btnExploreVenues, selectors.btnNextResults].join(",")).click(fetchVenues);
 		$(selectors.openNowOpt).change(function() {
-			appConfig.urlParams.openNow = 1 * this.checked;
+			appConfig.urlParams.openNow = Number(this.checked);
 		});
 		$(selectors.distanceOpt).change(function() {
-			appConfig.urlParams.sortByDistance = 1 * this.checked;
+			appConfig.urlParams.sortByDistance = Number(this.checked);
+		});
+		$(selectors.savedOpt).change(function() {
+			appConfig.urlParams.saved = Number(this.checked);
 		});
 		appConfig.categories.forEach(function(category) {
 			$(selectors.sectionOpt).append("<option class='text-capitalize' value='" + category + "'>" + category + "</option>");
