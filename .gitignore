@@ -1,0 +1,8 @@
+# MacOS specific
+.DS_Store
+
+# Ignoring node modules
+node_modules/*
+
+# Ignore package.json
+package*.json
