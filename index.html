@@ -7,6 +7,7 @@
 		<script src="scripts/lib/jquery-ui.min.js" type="text/javascript"></script>
 		<script src="scripts/app.js" type="text/javascript"></script>
 		<script src="scripts/index.js" type="text/javascript"></script>
+		<script src="scripts/fetchResultService.js" type="text/javascript"></script>
 		<link href="styles/bootstrap.min.css" rel="stylesheet"></link>
 		<link href="styles/jquery-ui.min.css" rel="stylesheet"></link>
 		<style type="text/css">
@@ -34,7 +35,7 @@
 		<div class="fixed-top" style="display: none;" id="progressBar"></div>
 		<div id="registerContainer" class="container col-sm-8 mt-5">
 			<div class="jumbotron bg-warning">
-				<h1 class="display-4">Explore venues with Foursquare.</h1>
+				<h1 class="display-4">Explore venues with Foursquare</h1>
 				<p class="lead">Welcome!</p>
 				<hr class="my-2">
 				<p>
@@ -96,7 +97,6 @@
 		<div style="display: none;" id="resultsContainer" class="card">
 			<div id="resultsCardHeader" class="card-header text-light bg-dark">
 				Results
-				<button id="btnNextResults" type="button" style="display: none;"></button>
 			</div>
 			<div class="card-body ml-4">
 				<table class="table table-striped">

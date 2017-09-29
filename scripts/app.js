@@ -108,24 +108,12 @@ function FoursquareApp(appConfig, $, selectors) {
 		$(selectors.resultsContainer).show();
 	}
 
-	function prepareApiUrlPath() {
-		var path = "";
-		for (param in appConfig.urlParams) {
-			if (appConfig.urlParams.hasOwnProperty(param)) {
-				path += "&" + param + "=" + appConfig.urlParams[param];
-			}
-		}
-
-		return path;
-	}
-
 	function fetchVenues() {
-		$(selectors.progressBar).show();
-		$.ajax({
-			url: appConfig.apiUrl + prepareApiUrlPath()
-		}).done(function(data) {
+		fetchResultService.get(appConfig.urlParams, function() {
+			$(selectors.progressBar).show();
+		}, function(response) {
 			$(selectors.progressBar).hide();
-			handleResponseAndPrepareUI(data.response);
+			handleResponseAndPrepareUI(response);
 		});
 	}
 
@@ -135,7 +123,7 @@ function FoursquareApp(appConfig, $, selectors) {
 		$(selectors.videoBackground).hide();
 		$(selectors.registerContainer).hide();
 		$(selectors.formContainer).show();
-		$([selectors.btnExploreVenues, selectors.btnNextResults].join(",")).click(fetchVenues);
+		$(selectors.btnExploreVenues).click(fetchVenues);
 		$(selectors.openNowOpt).change(function() {
 			appConfig.urlParams.openNow = Number(this.checked);
 		});
