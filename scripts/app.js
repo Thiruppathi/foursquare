@@ -156,5 +156,5 @@ function FoursquareApp(appConfig, $, selectors) {
 		$(selectors.limitResultsOpt).change(function() {
 			appConfig.urlParams.limit = this.value;
 		});
-	};
+	}
 }
