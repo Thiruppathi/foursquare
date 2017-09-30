@@ -44,48 +44,20 @@ function FoursquareApp(appConfig, $, selectors) {
 		});
 	}
 
-	/**
-	 * Prepares the html for the table row containing the
-	 * details of the venue.
-	 * 
-	 * @param {Object} data Object containig the details of the venue fetched.
-	 */
-	function appendTableRow(data) {
-		var html = "<tr> <th>" + data.id + "</th>";
-		if (data.url) {
-			html += "<td><a target='_blank' href='" + data.url + "'>" + data.name + "</a></td>";
-		} else {
-			html += "<td>" + data.name + "</td>";
-		}
-		html += "<td>" + data.rating + "</td>";
-		html += "<td>" + prepareAddressForGoogleMaps(data.location) + "</td>";
-		html += "</tr>";
-
-		return html;
-	}
-
-	function prepareAddressForGoogleMaps(location) {
-		if (location.lat && location.lng) {
-			return "<a target='_blank' href='https://google.com/maps/?q=" + location.lat + "," + location.lng + "'>" + location.address + "</a>";
-		}
-
-		return location.address;
-	}
-
 	function appendEmptyRowMessage(error) {
 		if (error) {
-			return "<tr class='alert-danger text-center'> <td colspan='4'>" +  error + "</td> </tr>";
+			return "<tr class='alert-danger text-center'> <td colspan='4'> Something went wrong fetching results </td> </tr>";
 		}
 
 		return "<tr class='alert-warning text-center'> <td colspan='4'> No results found </td> </tr>";
 	}
 
-	function getResultText(totalNo) {
+	function getResultHtml(totalNo) {
 		if (totalNo > appConfig.urlParams.limit) {
 			return "Showing " + appConfig.urlParams.limit + " results of " + totalNo;
-		} else {
-			return "Showing " + totalNo + " results of " + totalNo;
 		}
+		
+		return "Showing " + totalNo + " results of " + totalNo;
 	}
 
 	/**
@@ -98,7 +70,7 @@ function FoursquareApp(appConfig, $, selectors) {
 		if (response.totalResults === 0) {
 			$(selectors.resultsTableBody).append(appendEmptyRowMessage());
 		} else {
-			$(selectors.resultsCardHeader).text(getResultText(response.totalResults));
+			$(selectors.resultsCardHeader).html(getResultHtml(response.totalResults));
 			// Lets assume groups 0 is recommended places.
 			var rec_places = groups[0].items,
 			count = 1;
@@ -106,13 +78,13 @@ function FoursquareApp(appConfig, $, selectors) {
 				try {
 					var venue = place.venue;
 					$(selectors.resultsTableBody).append(
-						appendTableRow({
+						new VenueTableRowComponent({
 							id: count++,
 							name: venue.name,
 							rating: venue.rating,
 							location: venue.location,
 							url: venue.url
-						})
+						}).getRow()
 					);
 				} catch(error) {
 					console.warn(error);
@@ -140,13 +112,13 @@ function FoursquareApp(appConfig, $, selectors) {
 		$(selectors.formContainer).show();
 		$(selectors.btnExploreVenues).click(fetchVenues);
 		$(selectors.openNowOpt).change(function() {
-			appConfig.urlParams.openNow = Number(this.checked);
+			appConfig.urlParams.openNow = this.checked | 0;
 		});
 		$(selectors.distanceOpt).change(function() {
-			appConfig.urlParams.sortByDistance = Number(this.checked);
+			appConfig.urlParams.sortByDistance = this.checked | 0;
 		});
 		$(selectors.savedOpt).change(function() {
-			appConfig.urlParams.saved = Number(this.checked);
+			appConfig.urlParams.saved = this.checked | 0;
 		});
 		appConfig.categories.forEach(function(category) {
 			$(selectors.sectionOpt).append("<option class='text-capitalize' value='" + category + "'>" + category + "</option>");
