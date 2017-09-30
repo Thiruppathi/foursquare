@@ -44,14 +44,6 @@ function FoursquareApp(appConfig, $, selectors) {
 		});
 	}
 
-	function appendEmptyRowMessage(error) {
-		if (error) {
-			return "<tr class='alert-danger text-center'> <td colspan='4'> Something went wrong fetching results </td> </tr>";
-		}
-
-		return "<tr class='alert-warning text-center'> <td colspan='4'> No results found </td> </tr>";
-	}
-
 	function getResultHtml(totalNo) {
 		if (totalNo > appConfig.urlParams.limit) {
 			return "Showing " + appConfig.urlParams.limit + " results of " + totalNo;
@@ -68,7 +60,7 @@ function FoursquareApp(appConfig, $, selectors) {
 	function handleSuccessfulResponseAndPrepareUI(response) {
 		var groups = response.groups;
 		if (response.totalResults === 0) {
-			$(selectors.resultsTableBody).append(appendEmptyRowMessage());
+			$(selectors.resultsTableBody).append(new VenueTableRowComponent().getErrorRow());
 		} else {
 			$(selectors.resultsCardHeader).html(getResultHtml(response.totalResults));
 			// Lets assume groups 0 is recommended places.
@@ -99,7 +91,7 @@ function FoursquareApp(appConfig, $, selectors) {
 		fetchResultService.get(appConfig.urlParams).done(function(data) {
 			handleSuccessfulResponseAndPrepareUI(data.response);
 		}).fail(function(jqXhr, textStatus, errorThrown) {
-			$(selectors.resultsTableBody).append(appendEmptyRowMessage(errorThrown));
+			$(selectors.resultsTableBody).append(new VenueTableRowComponent().getErrorRow(true));
 		}).always(function (data) {
 			$(selectors.progressBar).hide();
 			$(selectors.resultsContainer).show();
