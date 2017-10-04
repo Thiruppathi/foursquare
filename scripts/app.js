@@ -5,6 +5,10 @@
  * @param {*} selectors Object containing selectors for DOM manipulation.
  */
 function FoursquareApp(appConfig, $, selectors) {
+	/**
+	 * The user is registered successfully if we get a token
+	 * from foursquare. 
+	 */
 	this.registerationSuccess = function(token) {
 		appConfig.urlParams.oauth_token = token;
 		getUserLocation();
@@ -15,8 +19,11 @@ function FoursquareApp(appConfig, $, selectors) {
 		if ("geolocation" in navigator) {
 			/* geolocation is available */
 			navigator.geolocation.getCurrentPosition(function(position) {
+				// Called when the user agrees to share his location.
 				appConfig.urlParams.ll = position.coords.latitude + "," + position.coords.longitude;
-				$(selectors.btnExploreVenues).show();
+				// remove the near property from the urlParams so that venues based on
+				// lat, lon can be fetched.
+				delete appConfig.urlParams.near;
 			});
 		} else {
 			/* geolocation IS NOT available */
@@ -44,12 +51,15 @@ function FoursquareApp(appConfig, $, selectors) {
 		});
 	}
 
-	function getResultHtml(totalNo) {
+	function getResultHtml(totalNo, userLocation) {
+		var html = "Showing ";
 		if (totalNo > appConfig.urlParams.limit) {
-			return "Showing " + appConfig.urlParams.limit + " results of " + totalNo;
+			html += appConfig.urlParams.limit + " results of " + totalNo;
+		} else {
+			html += totalNo + " results of " + totalNo;
 		}
 		
-		return "Showing " + totalNo + " results of " + totalNo;
+		return html + " near " + userLocation;
 	}
 
 	/**
@@ -62,7 +72,7 @@ function FoursquareApp(appConfig, $, selectors) {
 		if (response.totalResults === 0) {
 			$(selectors.resultsTableBody).append(new VenueTableRowComponent().getErrorRow());
 		} else {
-			$(selectors.resultsCardHeader).html(getResultHtml(response.totalResults));
+			$(selectors.resultsCardHeader).html(getResultHtml(response.totalResults, response.headerFullLocation));
 			// Lets assume groups 0 is recommended places.
 			var rec_places = groups[0].items,
 			count = 1;
