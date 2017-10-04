@@ -101,6 +101,14 @@ function FoursquareApp(appConfig, $, selectors) {
 	function configureApp() {
 		configureProgressBar();
 		configureSlider();
+		registerEventHandlers();
+	}
+
+	/**
+	 * Registering all necessary event handlers for the app
+	 * to work.
+	 */
+	function registerEventHandlers() {
 		$(selectors.formContainer).show();
 		$(selectors.btnExploreVenues).click(fetchVenues);
 		$(selectors.openNowOpt).change(function() {
