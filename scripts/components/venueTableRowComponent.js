@@ -16,10 +16,10 @@ function VenueTableRowComponent(venueDetails) {
 		return "<tr>" +
 					"<th>" + venueDetails.id + "</th>" +
 					"<td>" + 
-						"<a name='venueNameLink' target='_blank' href='" + (venueDetails.url ? venueDetails.url : '#')  + "'>" + venueDetails.name + "</a>" +
+						"<a target='_blank' href='" + (venueDetails.url ? venueDetails.url : '#')  + "'>" + venueDetails.name + "</a>" +
 					"</td>" +
 					"<td>" + venueDetails.rating + "</td>" +
-					"<td> <a target='_blank' href='https://google.com/maps/?q=" + prepareAddress() + "'>" + venueDetails.location.address + "</td>" +
+					"<td> <a target='_blank' href='https://google.com/maps/?q=" + prepareAddress() + "'>" + (venueDetails.location.address ? venueDetails.location.address : "Google maps link") + "</td>" +
 				"</tr>";
 	};
 
