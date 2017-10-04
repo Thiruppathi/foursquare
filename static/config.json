@@ -9,7 +9,7 @@
 	},
 	"clientId": "3W5ZMN5ESVIW1CNCDIUQM0V21DUAROGR4JSKVTEVY3QFGHE2",
 	"registerUrl": "https://foursquare.com/oauth2/authenticate?response_type=token",
-	"redirectUrlPath": "/index.html",
+	"redirectUrlPath": "/app.html",
 	"categories": [
 		"all",
 		"food",
