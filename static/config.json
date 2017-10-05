@@ -11,19 +11,19 @@
 	"clientId": "3W5ZMN5ESVIW1CNCDIUQM0V21DUAROGR4JSKVTEVY3QFGHE2",
 	"registerUrl": "https://foursquare.com/oauth2/authenticate?response_type=token",
 	"redirectUrlPath": "/app.html",
-	"categories": [
-		"all",
-		"food",
-		"drinks",
-		"coffee",
-		"shops",
-		"arts",
-		"outdoors",
-		"sights",
-		"trending",
-		"nextVenues",
-		"topPicks"
-	],
+	"categories": {
+		"all": "All",
+		"food": "Food",
+		"drinks": "Drinks",
+		"coffee": "Coffee",
+		"shops": "Shops",
+		"arts": "Arts",
+		"outdoors": "Outdoors",
+		"sights": "Sights",
+		"trending": "Trending",
+		"nextVenues": "Next venues",
+		"topPicks": "Top picks"
+	},
 	"MESSAGES": {
 		"OUTDATED_BROWSER": "Browser is so outdated",
 		"NO_RESULTS": "No results found",

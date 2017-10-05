@@ -106,10 +106,21 @@ function FoursquareApp(appConfig, $, selectors) {
 			$(selectors.resultsContainer).show();
 		});
 	}
+	
+	/**
+	 * Prepares the dropdown displaying the different venue categories.
+	 */
+	function prepareVenueCategoryOptions() {
+		var categories = Object.getOwnPropertyNames(appConfig.categories);
+		categories.forEach(function(category) {
+			$(selectors.sectionOpt).append("<option class='text-capitalize' value='" + category + "'>" + appConfig.categories[category] + "</option>");
+		});
+	}
 
 	function configureApp() {
 		configureProgressBar();
 		configureSlider();
+		prepareVenueCategoryOptions();
 		registerEventHandlers();
 	}
 
@@ -128,9 +139,6 @@ function FoursquareApp(appConfig, $, selectors) {
 		});
 		$(selectors.savedOpt).change(function() {
 			appConfig.urlParams.saved = this.checked | 0;
-		});
-		appConfig.categories.forEach(function(category) {
-			$(selectors.sectionOpt).append("<option class='text-capitalize' value='" + category + "'>" + category + "</option>");
 		});
 		$(selectors.sectionOpt).change(function() {
 			if ("all" !== this.value) {
