@@ -27,6 +27,7 @@
 	"MESSAGES": {
 		"OUTDATED_BROWSER": "Browser is so outdated",
 		"NO_RESULTS": "No results found",
-		"SOMETHING_WENT_WRONG": "Something went wrong while fetching results"
+		"SOMETHING_WENT_WRONG": "Something went wrong while fetching results",
+		"ALLOW_BROWSER": "Allow the browser to use your location for better results"
 	}
 }

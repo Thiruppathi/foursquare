@@ -24,10 +24,13 @@ function FoursquareApp(appConfig, $, selectors) {
 				// remove the near property from the urlParams so that venues based on
 				// lat, lon can be fetched.
 				delete appConfig.urlParams.near;
+			}, function(error) {
+				// When user refuses to share his location with the browser.
+				flashbagService.get("warn", appConfig.MESSAGES.ALLOW_BROWSER);
 			});
 		} else {
 			/* geolocation IS NOT available */
-			console.error(appConfig.MESSAGES.OUTDATED_BROWSER);
+			flashbagService.get("error", appConfig.MESSAGES.OUTDATED_BROWSER);
 		}
 	}
 	
@@ -111,7 +114,7 @@ function FoursquareApp(appConfig, $, selectors) {
 	 * Prepares the dropdown displaying the different venue categories.
 	 */
 	function prepareVenueCategoryOptions() {
-		var categories = Object.getOwnPropertyNames(appConfig.categories);
+		var categories = Object.keys(appConfig.categories);
 		categories.forEach(function(category) {
 			$(selectors.sectionOpt).append("<option class='text-capitalize' value='" + category + "'>" + appConfig.categories[category] + "</option>");
 		});
