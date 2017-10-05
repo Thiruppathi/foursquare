@@ -4,6 +4,7 @@ $(document).ready(function() {
 			resultsTableBody: "#resultsTableBody",
 			resultsContainer: "#resultsContainer",
 			slider: "#slider",
+			rangeInput: "#rangeInput",
 			progressBar: "#progressBar",
 			btnExploreVenues: "#btnExploreVenues",
 			registerContainer: "#registerContainer",

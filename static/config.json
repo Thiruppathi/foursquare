@@ -23,5 +23,10 @@
 		"trending",
 		"nextVenues",
 		"topPicks"
-	]
+	],
+	"MESSAGES": {
+		"OUTDATED_BROWSER": "Browser is so outdated",
+		"NO_RESULTS": "No results found",
+		"SOMETHING_WENT_WRONG": "Something went wrong while fetching results"
+	}
 }

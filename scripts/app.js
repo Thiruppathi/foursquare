@@ -27,7 +27,7 @@ function FoursquareApp(appConfig, $, selectors) {
 			});
 		} else {
 			/* geolocation IS NOT available */
-			console.error("Browser is so outdated");
+			console.error(appConfig.MESSAGES.OUTDATED_BROWSER);
 		}
 	}
 	
@@ -46,7 +46,7 @@ function FoursquareApp(appConfig, $, selectors) {
 			slide: function(event, ui) {
 				// Add debouncing here.
 				appConfig.urlParams.radius = ui.value;
-				$("#rangeInput").val(ui.value);
+				$(selectors.rangeInput).val(ui.value);
 			}
 		});
 	}
@@ -70,7 +70,7 @@ function FoursquareApp(appConfig, $, selectors) {
 	function handleSuccessfulResponseAndPrepareUI(response) {
 		var groups = response.groups;
 		if (response.totalResults === 0) {
-			$(selectors.resultsTableBody).append(new VenueTableRowComponent().getErrorRow());
+			$(selectors.resultsTableBody).append(new VenueTableRowComponent({}, appConfig.MESSAGES).getErrorRow());
 		} else {
 			$(selectors.resultsCardHeader).html(getResultHtml(response.totalResults, response.headerFullLocation));
 			// Lets assume groups 0 is recommended places.
@@ -86,8 +86,7 @@ function FoursquareApp(appConfig, $, selectors) {
 							rating: venue.rating,
 							location: venue.location,
 							url: venue.url
-						}).getRow()
-					);
+						}).getRow());
 				} catch(error) {
 					console.warn(error);
 				}
@@ -101,7 +100,7 @@ function FoursquareApp(appConfig, $, selectors) {
 		fetchResultService.get(appConfig.urlParams).done(function(data) {
 			handleSuccessfulResponseAndPrepareUI(data.response);
 		}).fail(function(jqXhr, textStatus, errorThrown) {
-			$(selectors.resultsTableBody).append(new VenueTableRowComponent().getErrorRow(true));
+			$(selectors.resultsTableBody).append(new VenueTableRowComponent({}, appConfig.MESSAGES).getErrorRow(true));
 		}).always(function (data) {
 			$(selectors.progressBar).hide();
 			$(selectors.resultsContainer).show();

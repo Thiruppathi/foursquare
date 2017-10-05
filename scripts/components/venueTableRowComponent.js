@@ -1,11 +1,9 @@
 /**
  * Class for creating the table row component containing the venue details.
- * @param {Object} venueDetails Object containing the details of the venue 
+ * @param {Object} venueDetails Object containing the details of the venue.
+ * 
  */
-function VenueTableRowComponent(venueDetails) {
-	var errorMessage = "Something went wrong while fetching results",
-		noResultsMessage = "No results found";
-
+function VenueTableRowComponent(venueDetails, MESSAGES) {
 	function prepareAddress() {
 		var location = venueDetails.location;
 
@@ -25,9 +23,9 @@ function VenueTableRowComponent(venueDetails) {
 
 	this.getErrorRow = function(error) {
 		if (error) {
-			return "<tr class='alert-danger text-center'><td colspan='4'>" + errorMessage + "</td></tr>";
+			return "<tr class='alert-danger text-center'><td colspan='4'>" + MESSAGES.SOMETHING_WENT_WRONG + "</td></tr>";
 		}
 
-		return "<tr class='alert-warning text-center'><td colspan='4'>" + noResultsMessage + "</td></tr>";
+		return "<tr class='alert-warning text-center'><td colspan='4'>" + MESSAGES.NO_RESULTS + "</td></tr>";
 	};
 }
